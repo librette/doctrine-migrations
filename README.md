@@ -52,6 +52,8 @@ migrations:
 
 Default values of migrationsNamespace, tableName and migrationsDirectory are the same as you see in example above.
 
+Migrations directory must exists and must be writable.
+
 
 Usage
 -------------
