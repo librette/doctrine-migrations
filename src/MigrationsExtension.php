@@ -46,11 +46,11 @@ class MigrationsExtension extends CompilerExtension
 				->setClass('Librette\Doctrine\Migrations\OutputWriter');
 
 		$builder->addDefinition($this->prefix('outputInterfaceLinker'))
-				->setClass('\Librette\Doctrine\Migrations\OutputInterfaceLinker')
+				->setClass('Librette\Doctrine\Migrations\OutputInterfaceLinker')
 				->addTag(EventsExtension::SUBSCRIBER_TAG);
 
 		$configuration = $builder->addDefinition($this->prefix('configuration'));
-		$configuration->setClass('\Doctrine\DBAL\Migrations\Configuration\Configuration');
+		$configuration->setClass('Doctrine\DBAL\Migrations\Configuration\Configuration');
 		$configuration->addSetup('setMigrationsDirectory', array($config['migrationsDirectory']));
 		$configuration->addSetup('setMigrationsNamespace', array($config['migrationsNamespace']));
 		$configuration->addSetup('registerMigrationsFromDirectory', array($config['migrationsDirectory']));
