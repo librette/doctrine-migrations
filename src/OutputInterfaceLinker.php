@@ -3,6 +3,8 @@ namespace Librette\Doctrine\Migrations;
 
 use Kdyby\Events\Subscriber;
 use Nette\Application;
+use Symfony\Component\Console\ConsoleEvents;
+use Symfony\Component\Console\Event\ConsoleCommandEvent;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -31,9 +33,14 @@ class OutputInterfaceLinker implements Subscriber
 	 */
 	public function getSubscribedEvents()
 	{
-		return array(
+		if (PHP_SAPI !== 'cli') {
+			return [];
+		}
+
+		return [
 			'Nette\Application\Application::onRequest' => 'handleApplicationRequest',
-		);
+			ConsoleEvents::COMMAND                     => 'handleCommand',
+		];
 	}
 
 
@@ -45,5 +52,11 @@ class OutputInterfaceLinker implements Subscriber
 				$this->outputWriter->setOutputInterface($output);
 			}
 		}
+	}
+
+
+	public function handleCommand(ConsoleCommandEvent $event)
+	{
+		$this->outputWriter->setOutputInterface($event->getOutput());
 	}
 }
