@@ -50,10 +50,10 @@ class MigrationsExtension extends CompilerExtension
 				->addTag(EventsExtension::SUBSCRIBER_TAG);
 
 		$configuration = $builder->addDefinition($this->prefix('configuration'));
-		$configuration->setClass('Doctrine\DBAL\Migrations\Configuration\Configuration');
+		$configuration->setClass('Librette\Doctrine\Migrations\Configuration');
 		$configuration->addSetup('setMigrationsDirectory', array($config['migrationsDirectory']));
 		$configuration->addSetup('setMigrationsNamespace', array($config['migrationsNamespace']));
-		$configuration->addSetup('registerMigrationsFromDirectory', array($config['migrationsDirectory']));
+		$configuration->addSetup('scheduleRegisterMigrationsFromDirectory', array($config['migrationsDirectory']));
 		if (isset($config['name'])) {
 			$configuration->addSetup('setName', array($config['name']));
 		}
