@@ -3,8 +3,8 @@ namespace Librette\Doctrine\Migrations;
 
 use Kdyby\Console\DI\ConsoleExtension;
 use Kdyby\Events\DI\EventsExtension;
-use Nette\DI\CompilerExtension;
 use Nette;
+use Nette\DI\CompilerExtension;
 
 class MigrationsExtension extends CompilerExtension
 {
@@ -16,6 +16,7 @@ class MigrationsExtension extends CompilerExtension
 		'migrationsDirectory' => '%appDir%/migrations',
 		'migrations'          => array(),
 		'disabled'            => FALSE,
+		'organization'        => NULL,
 	);
 
 	public $commands = array(
@@ -54,6 +55,14 @@ class MigrationsExtension extends CompilerExtension
 		$configuration->addSetup('setMigrationsDirectory', array($config['migrationsDirectory']));
 		$configuration->addSetup('setMigrationsNamespace', array($config['migrationsNamespace']));
 		$configuration->addSetup('scheduleRegisterMigrationsFromDirectory', array($config['migrationsDirectory']));
+		switch ($config['organization']) {
+			case 'year':
+				$configuration->addSetup('setMigrationsAreOrganizedByYear');
+				break;
+			case 'year_month':
+				$configuration->addSetup('setMigrationsAreOrganizedByYearAndMonth');
+				break;
+		}
 		if (isset($config['name'])) {
 			$configuration->addSetup('setName', array($config['name']));
 		}
