@@ -10,9 +10,9 @@
 		}
 	],
 	"require": {
-		"php": ">=5.3.2",
+		"php": ">=7.0",
 		"doctrine/migrations": "~1.0@dev",
-		"nette/nette": "~2.1@dev",
+		"nette/di": "~2.4 || ~3.0",
 		"kdyby/console": "*",
 		"kdyby/events": "*"
 	},
